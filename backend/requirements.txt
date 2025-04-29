@@ -1,0 +1,7 @@
+pdfplumber # For PDF parsing
+pandas # For table manipulation
+Pillow # For image handling
+requests # For downloading files
+pytesseract # For OCR (Optical Character Recognition)
+opencv-python-headless # For image processing (headless version for servers)
+numpy # For numerical operations
