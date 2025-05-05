@@ -1,7 +1,20 @@
-pdfplumber # For PDF parsing
-pandas # For table manipulation
-Pillow # For image handling
-requests # For downloading files
-pytesseract # For OCR (Optical Character Recognition)
-opencv-python-headless # For image processing (headless version for servers)
-numpy # For numerical operations
+# PDF Processing
+pdfplumber  # For PDF parsing and text extraction
+
+# RAG and LLM
+google-genai
+python-dotenv  # For loading environment variables
+
+# Configuration
+pydantic-settings  # For settings management
+
+# Vector Storage and Embeddings
+chromadb  # Vector database
+sentence-transformers  # For creating embeddings
+langchain  # For RAG pipeline
+langchain-community  # Additional LangChain components
+tiktoken  # For token counting
+
+# Text Processing
+nltk  # For text preprocessing
+python-magic  # For file type detection
