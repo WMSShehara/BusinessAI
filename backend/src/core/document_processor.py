@@ -54,7 +54,26 @@ class DocumentProcessor:
         # Split into chunks
         chunks = self.text_splitter.split_text(processed_text)
 
+        # Save processed chunks to files
+        self._save_chunks_to_files(file_path.stem, chunks)
+
         return chunks
+        
+    def _save_chunks_to_files(self, document_name: str, chunks: List[str]) -> None:
+        """Save processed chunks to files in the processed directory.
+        
+        Args:
+            document_name: Name of the original document
+            chunks: List of text chunks to save
+        """
+        for i, chunk in enumerate(chunks):
+            # Create filename for the chunk
+            chunk_filename = f"{document_name}_chunk_{i}.txt"
+            chunk_path = settings.PROCESSED_DATA_DIR / chunk_filename
+            
+            # Write chunk to file
+            with open(chunk_path, "w", encoding="utf-8") as f:
+                f.write(chunk)
 
     def process_all_documents(self) -> List[str]:
         """Process all documents in the raw data directory.

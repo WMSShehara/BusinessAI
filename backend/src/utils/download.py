@@ -4,10 +4,11 @@ from pathlib import Path
 import sys
 # add parent directory to the path
 sys.path.append(str(Path(__file__).parents[2].resolve()))
-from src.lib.logger import get_logger
+import logging
 
 # Set up logging
-logger = get_logger(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def download_pdf(url, output_folder, filename=None):
     """
