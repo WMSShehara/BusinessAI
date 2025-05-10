@@ -41,4 +41,5 @@ logs/
 # Coverage
 .coverage
 
-data/output
+data/vector_store
+data/processed_data
