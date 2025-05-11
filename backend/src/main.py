@@ -4,8 +4,8 @@ import logging
 import sys
 from pathlib import Path
 from core.document_processor import DocumentProcessor
-from core.embeddings import EmbeddingGenerator
-from core.vector_store import VectorStore
+from core.embeddings import EmbeddingManager
+from core.vector_store import VectorStoreManager
 from config.settings import settings
 
 # Add the project root to Python path
@@ -34,12 +34,19 @@ def main() -> None:
 
     # Initialize components
     document_processor = DocumentProcessor()
-    embedding_generator = EmbeddingGenerator()
-    vector_store = VectorStore()
+    embedding_manager = EmbeddingManager(model_name=settings.EMBEDDING_MODEL)
+    vector_store = VectorStoreManager(
+        chroma_dir=str(settings.VECTOR_STORE_DIR),
+        collection_name=settings.COLLECTION_NAME,
+        model_name=settings.EMBEDDING_MODEL,
+    )
 
-    # Process documents
-    logger.info("Processing documents...")
-    chunks = document_processor.process_all_documents()
+    # Process all PDFs in the raw data directory
+    logger.info("Processing all documents in %s...", settings.RAW_DATA_DIR)
+    chunks = document_processor.process_all_documents(
+        input_dir=settings.RAW_DATA_DIR,
+        output_dir=settings.PROCESSED_DATA_DIR,
+    )
 
     if not chunks:
         logger.warning(
@@ -47,13 +54,13 @@ def main() -> None:
         )
         return
 
-    # Generate embeddings
-    logger.info("Generating embeddings...")
-    embeddings = embedding_generator.generate_embeddings(chunks)
-
-    # Store in vector database
-    logger.info("Storing embeddings in vector database...")
-    vector_store.add_documents(chunks, embeddings)
+    # Generate embeddings and store in vector DB
+    logger.info("Generating embeddings and storing in vector database...")
+    embedding_manager.embed_and_store_chunks(
+        chunks=chunks,
+        chroma_dir=str(settings.VECTOR_STORE_DIR),
+        collection_name=settings.COLLECTION_NAME,
+    )
 
     logger.info("RAG application setup completed successfully!")
 

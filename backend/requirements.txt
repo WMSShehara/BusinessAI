@@ -1,20 +1,28 @@
-# PDF Processing
-pdfplumber  # For PDF parsing and text extraction
 
-# RAG and LLM
-google-genai
-python-dotenv  # For loading environment variables
-
-# Configuration
-pydantic-settings  # For settings management
+# Layout and OCR
+layoutparser[ocr]  # For layout detection and OCR (includes pytesseract)
+layoutparser[layoutmodels]
+pytesseract  # For OCR
+opencv-python  # For image processing
+pdf2image  # For converting PDF pages to images
+pillow  # For image handling
 
 # Vector Storage and Embeddings
 chromadb  # Vector database
 sentence-transformers  # For creating embeddings
-langchain  # For RAG pipeline
-langchain-community  # Additional LangChain components
-tiktoken  # For token counting
+langchain # For vector store
 
-# Text Processing
-nltk  # For text preprocessing
-python-magic  # For file type detection
+# Configuration
+python-dotenv  # For loading environment variables
+pydantic-settings  # For settings management
+
+paddlepaddle # For layoutparser
+
+langchain-google-genai # For Google AI API integration
+
+# NOTE: For Windows, you must install Poppler and add it to your PATH for pdf2image to work.
+# Download from: https://github.com/oschwartz10612/poppler-windows/releases/
+
+# NOTE: For Windows, you must install Tesseract and add it to your PATH for pytesseract to work.
+# Download from: https://github.com/UB-Mannheim/tesseract/wiki
+
