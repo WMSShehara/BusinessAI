@@ -36,8 +36,7 @@ class Settings(BaseSettings):
     # Test queries
     TEST_QUERIES: List[str] = [
         "What are the key financial highlights mentioned in the Haycarb report?",
-        "What is the company's revenue growth in 2024 compare to 2023?",
-        "What are the main challenges faced by the company?",
+        "is it a good time to buy haycarb?",
     ]
 
     model_config = SettingsConfigDict(
