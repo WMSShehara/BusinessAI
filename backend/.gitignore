@@ -25,6 +25,7 @@ venv/
 ENV/
 env/
 .venv/
+venv1/
 
 # IDE
 .idea/
@@ -41,4 +42,5 @@ logs/
 # Coverage
 .coverage
 
-data/output
+data/vector_store
+data/processed_data

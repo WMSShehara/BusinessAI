@@ -1,0 +1,31 @@
+Install Poppler on Windows
+1. Download Poppler for Windows
+Go to: Poppler for Windows releases
+Download the latest poppler-xx_xx_xx-xxx.zip (e.g., poppler-24.03.0-0.zip).
+2. Extract Poppler
+Extract the zip file to a location, e.g., C:\poppler.
+3. Add Poppler to your PATH
+Open the Start Menu, search for "Environment Variables", and open "Edit the system environment variables".
+Click "Environment Variables".
+Under "System variables", find and select the Path variable, then click "Edit".
+Click "New" and add the path to the bin folder inside your Poppler directory, e.g.:
+C:\poppler\bin
+
+Install Tesseract on Windows
+1. Download Tesseract for Windows
+Go to: Tesseract for Windows releases
+Download the latest tesseract-xx_xx_xx-xxx.zip (e.g., tesseract-5.3.0-setup-x64.exe).
+2. Install Tesseract
+Run the downloaded installer.
+3. Add Tesseract to your PATH
+Open the Start Menu, search for "Environment Variables", and open "Edit the system environment variables".
+Click "Environment Variables".
+Under "System variables", find and select the Path variable, then click "Edit".
+Click "New" and add the path to the bin folder inside your Tesseract directory, e.g.:
+C:\Program Files\Tesseract-OCR
+
+
+
+
+
+

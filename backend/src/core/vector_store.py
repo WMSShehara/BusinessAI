@@ -1,18 +1,17 @@
-"""Vector store module for the RAG application."""
-
-from typing import List, Optional
+"""Vector store implementation using ChromaDB."""
 
 import chromadb
 from chromadb.config import Settings
-
+from pathlib import Path
+from typing import List
 from config.settings import settings
-from core.embeddings import EmbeddingGenerator
+from langchain.schema import Document
 
 
 class VectorStore:
-    """Handles vector storage and retrieval."""
+    """Vector store for document embeddings using ChromaDB."""
 
-    def __init__(self) -> None:
+    def __init__(self):
         """Initialize the vector store."""
         self.client = chromadb.PersistentClient(
             path=str(settings.VECTOR_STORE_DIR), settings=Settings(allow_reset=True)
@@ -21,34 +20,25 @@ class VectorStore:
             name=settings.COLLECTION_NAME
         )
 
-    def add_documents(self, texts: List[str], embeddings: List[List[float]]) -> None:
-        """Add documents and their embeddings to the vector store.
-
-        Args:
-            texts: List of text chunks
-            embeddings: List of corresponding embeddings
-        """
-        # Generate IDs for the documents
-        ids = [f"doc_{i}" for i in range(len(texts))]
-
-        # Add to collection
-        self.collection.add(embeddings=embeddings, documents=texts, ids=ids)
-
-    def search(self, query: str, k: int = 5) -> List[str]:
+    def search(self, query: str, k: int = 5) -> List[Document]:
         """Search for similar documents.
 
         Args:
-            query: Search query
+            query: The search query
             k: Number of results to return
 
         Returns:
-            List of similar documents
+            List of Document objects
         """
-        # Generate embedding for the query
-        embedding_generator = EmbeddingGenerator()
-        query_embedding = embedding_generator.generate_embeddings([query])[0]
+        results = self.collection.query(query_texts=[query], n_results=k)
 
-        # Search the collection
-        results = self.collection.query(query_embeddings=[query_embedding], n_results=k)
+        # Convert results to Document objects
+        documents = []
+        for i in range(len(results["documents"][0])):
+            doc = Document(
+                page_content=results["documents"][0][i],
+                metadata=results["metadatas"][0][i] if results["metadatas"] else {},
+            )
+            documents.append(doc)
 
-        return results["documents"][0]
+        return documents

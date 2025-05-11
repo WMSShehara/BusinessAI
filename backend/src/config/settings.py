@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import List
 
 
 class Settings(BaseSettings):
@@ -13,21 +14,31 @@ class Settings(BaseSettings):
     PROCESSED_DATA_DIR: Path = DATA_DIR / "processed"
     VECTOR_STORE_DIR: Path = DATA_DIR / "vector_store"
 
-    # Document processing
-    CHUNK_SIZE: int = 1000
-    CHUNK_OVERLAP: int = 200
+    # # Document processing
+    K: int = 1  # Number of documents to retrieve for context
+    # CHUNK_SIZE: int = 1000
+    # CHUNK_OVERLAP: int = 200
 
     # Embeddings
     EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
 
     # Vector store
-    COLLECTION_NAME: str = "haycarb_documents"
+    COLLECTION_NAME: str = "test_collection"
 
     # API Keys
     GOOGLE_API_KEY: str
 
     # LLM settings
     LLM_MODEL: str = "gemini-2.5-flash-preview-04-17"
+    TEMPERATURE: float = 0.0
+    MAX_OUTPUT_TOKENS: int = 2048
+
+    # Test queries
+    TEST_QUERIES: List[str] = [
+        "What are the key financial highlights mentioned in the Haycarb report?",
+        "What is the company's revenue growth in 2024 compare to 2023?",
+        "What are the main challenges faced by the company?",
+    ]
 
     model_config = SettingsConfigDict(
         env_file=".env",
