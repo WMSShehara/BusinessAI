@@ -45,6 +45,9 @@ BusinessAI
 - Manages environment variables
 - Configures paths, models, and API keys
 
+## System Architechture
+https://www.mermaidchart.com/raw/454e8117-0163-411b-8867-90fb2664716a?theme=light&version=v0.1&format=svg
+
 ## Prerequisites
 
 1. Python 3.10+
